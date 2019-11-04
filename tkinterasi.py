@@ -3,6 +3,10 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import Menubutton
 
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+
 funktsioonid=[]
 
 def fun1():
@@ -32,8 +36,8 @@ def fun5():
     menüü3.menu.entryconfig(5, label="")
     
 def menüülist(menüü):
-    menüü.menu.add_command(label="Funktsioon 1",command=fun1, activebackground="gray30", activeforeground="snow2")
-    menüü.menu.add_command(label="Funktsioon 2",command=fun2, activebackground="gray30", activeforeground="snow2")
+    menüü.menu.add_command(label="Paneb helitugevuse maksimumile",command=fun1, activebackground="gray30", activeforeground="snow2")
+    menüü.menu.add_command(label="Paneb helitugevuse miinimumile",command=fun2, activebackground="gray30", activeforeground="snow2")
     menüü.menu.add_command(label="Funktsioon 3",command=fun3, activebackground="gray30", activeforeground="snow2")
     menüü.menu.add_command(label="Funktsioon 4",command=fun4, activebackground="gray30", activeforeground="snow2")
     menüü.menu.add_command(label="Funktsioon 5",command=fun5, activebackground="gray30", activeforeground="snow2")
@@ -82,10 +86,19 @@ raam.rowconfigure(2,weight=1)
 raam.mainloop()
 
 
+devices = AudioUtilities.GetSpeakers()
+interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+volume = cast(interface, POINTER(IAudioEndpointVolume))
+
+
 if funktsioonid[0]=="f1":
-    print("täidab rusika tuvastamisel funktsiooni 1")
+    print("Rusika tuvastamisel paneb helitugevuse maksimumile")
+    #if rusikas:
+        #volume.SetMasterVolumeLevel(-0.0, None) 
 elif funktsioonid[0]=="f2":
-    print("täidab rusika tuvastamisel funktsiooni 2")
+    print("Rusika tuvastamisel paneb helitugevuse miinimumile")
+    #if rusikas:
+        #volume.SetMasterVolumeLevel(-80.0, None) 
 elif funktsioonid[0]=="f3":
     print("täidab rusika tuvastamisel funktsiooni 3")
 elif funktsioonid[0]=="f4":
@@ -94,9 +107,13 @@ elif funktsioonid[0]=="f5":
     print("täidab rusika tuvastamisel funktsiooni 5")
     
 if funktsioonid[1]=="f1":
-    print("täidab kõik sõrmed püsti tuvastamisel funktsiooni 1")
+    print("Kõik sõrmed püsti tuvastamisel paneb helitugevuse maksimumile")
+    #if kõik sõrmed püsti:
+        #volume.SetMasterVolumeLevel(-0.0, None) 
 elif funktsioonid[1]=="f2":
-    print("täidab kõik sõrmed püsti tuvastamisel funktsiooni 2")
+    print("Kõik sõrmed püsti tuvastamisel paneb helitugevuse miinimumile")
+    #if kõik sõrmed püsti:
+        #volume.SetMasterVolumeLevel(-80.0, None)
 elif funktsioonid[1]=="f3":
     print("täidab kõik sõrmed püsti tuvastamisel funktsiooni 3")
 elif funktsioonid[1]=="f4":
@@ -105,9 +122,13 @@ elif funktsioonid[1]=="f5":
     print("täidab kõik sõrmed püsti tuvastamisel funktsiooni 5")
 
 if funktsioonid[2]=="f1":
-    print("täidab üks sõrm püsti tuvastamisel funktsiooni 1")
+    print("Üks sõrm püsti tuvastamisel paneb helitugevuse maksimumile")
+    #if üks sõrm püsti:
+        #volume.SetMasterVolumeLevel(-0.0, None) 
 elif funktsioonid[2]=="f2":
-    print("täidab üks sõrm püsti tuvastamisel funktsiooni 2")
+    print("Üks sõrm püsti tuvastamisel paneb helitugevuse miinimumile")
+    #if üks sõrm püsti:
+        #volume.SetMasterVolumeLevel(-80.0, None)
 elif funktsioonid[2]=="f3":
     print("täidab üks sõrm püsti tuvastamisel funktsiooni 3")
 elif funktsioonid[2]=="f4":
